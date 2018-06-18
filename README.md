@@ -2,7 +2,7 @@
 Notebook of Javascript Things to Remember
 
 
-### Pad with Zeros:
+### Left Pad with Zeros:
 ```
 function(number, pad) { 
   var result= String(number);
