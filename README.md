@@ -11,3 +11,29 @@ function(number, pad) {
 }
 ```
 
+### Execute asynchronous items in series
+```
+function waitabit(time){
+    console.log(`Creating Promise for ${time}`);
+    return new Promise((resolve, reject) => {
+        console.log(`Start executing wait for ${time}`);
+        setTimeout(() => {
+            console.log(`done waiting for ${time} :: calling resolve()`);
+            resolve(time);
+        }, time);
+    }); 
+}
+
+var wait_list= [2000,4000,1000,3000];
+
+function execute_in_series(list, list_callback){
+    list.reduce( (p,c) => {
+        return p.then(() => {
+            return list_callback(c);
+        }); 
+    }, Promise.resolve());
+}
+
+execute_in_series(wait_list, waitabit);
+```
+
