@@ -26,10 +26,10 @@ function waitabit(time){
 
 var wait_list= [2000,4000,1000,3000];
 
-function execute_in_series(list, list_callback){
+function execute_in_series(list, callback_with_promise){
     list.reduce( (p,c) => {
         return p.then(() => {
-            return list_callback(c);
+            return callback_with_promise(c);
         }); 
     }, Promise.resolve());
 }
