@@ -37,3 +37,36 @@ function execute_in_series(list, callback_with_promise){
 execute_in_series(wait_list, waitabit);
 ```
 
+### Execute in Promise in series with done Promise
+```
+function execute_in_series(list, callback_with_promise){
+    return new Promise((resolve, reject) => {
+        list.reduce( (p,c, index, source_list) => {
+            return p.then(() => {
+                var cb_result=  callback_with_promise(c).then( () => { 
+                    if(index >= (source_list.length -1)){
+                        resolve();
+                    }   
+                }); 
+                return cb_result;
+            }); 
+        }, Promise.resolve());
+    }); 
+}
+
+execute_in_series([1,1.2,1.4,1.6], (t) => {
+    return new Promise((resolve, reject) => {
+        console.log(`>>>>> --- Test begin: ${t}`);
+        setTimeout(() => {
+           console.log(`<<<<< ---   Test complete: ${t}`);
+           resolve();
+        }, Math.floor(t * 1000));
+    });
+}).then( () => {
+    console.log("All Done.");
+});
+
+```
+
+
+
