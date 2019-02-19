@@ -68,5 +68,14 @@ execute_in_series([1,1.2,1.4,1.6], (t) => {
 
 ```
 
+### Generate random integer between two values
+
+```
+function getRandomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+```
+
+
 
 
